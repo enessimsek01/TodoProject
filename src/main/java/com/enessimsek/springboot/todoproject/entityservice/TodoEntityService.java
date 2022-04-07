@@ -1,9 +1,11 @@
 package com.enessimsek.springboot.todoproject.entityservice;
 
 
+import com.enessimsek.springboot.todoproject.converter.TodoConverter;
 import com.enessimsek.springboot.todoproject.dao.TodoDao;
+import com.enessimsek.springboot.todoproject.dto.TodoDto;
+import com.enessimsek.springboot.todoproject.dto.TodoSaveRequestDto;
 import com.enessimsek.springboot.todoproject.entity.Todo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,26 +14,35 @@ import java.util.Optional;
 @Service
 public class TodoEntityService {
 
-    @Autowired
-    private TodoDao todoDao;
 
-    public List<Todo> findAll(){
-        return todoDao.findAll();
+    private final TodoDao todoDao;
+
+    public TodoEntityService(TodoDao todoDao) {
+        this.todoDao = todoDao;
     }
 
-    public Todo findById(Long id){
+    public List<TodoDto> findAll(){
+        List<Todo> todoList = todoDao.findAll();
+        List<TodoDto> todoDtoList = TodoConverter.INSTANCE.convertAllTodoListToTodoDtoList(todoList);
+        return todoDtoList;
+    }
+
+    public TodoDto findById(Long id){
         Optional<Todo> optionalTodo=todoDao.findById(id);
 
-        Todo todo=null;
+        TodoDto todoDto=null;
         if(optionalTodo.isPresent()){
-            todo=optionalTodo.get();
+            todoDto = TodoConverter.INSTANCE.convertTodoToTodoDto(optionalTodo.get());
         }
 
-        return todo;
+        return todoDto;
     }
 
-    public Todo save(Todo todo){
-        return todoDao.save(todo);
+    public TodoDto save(TodoSaveRequestDto todoSaveRequestDto){
+        Todo todo=TodoConverter.INSTANCE.convertTodoSaveRequestDtoToTodo(todoSaveRequestDto);
+        todo = todoDao.save(todo);
+        TodoDto todoDto = TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
+        return todoDto;
     }
 
     public void deleteById(Long id){
