@@ -7,6 +7,7 @@ import com.enessimsek.springboot.todoproject.dto.TodoDto;
 import com.enessimsek.springboot.todoproject.dto.TodoSaveRequestDto;
 import com.enessimsek.springboot.todoproject.dto.TodoUpdateRequestDto;
 import com.enessimsek.springboot.todoproject.entity.Todo;
+import com.enessimsek.springboot.todoproject.exception.TodoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,13 +30,8 @@ public class TodoEntityService {
     }
 
     public TodoDto findById(Long id){
-        Optional<Todo> optionalTodo=todoDao.findById(id);
-
-        TodoDto todoDto=null;
-        if(optionalTodo.isPresent()){
-            todoDto = TodoConverter.INSTANCE.convertTodoToTodoDto(optionalTodo.get());
-        }
-
+        Todo todo=todoDao.findById(id).orElseThrow(()->new TodoNotFoundException("Work Not found"));
+        TodoDto todoDto=TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
         return todoDto;
     }
 
@@ -57,6 +53,7 @@ public class TodoEntityService {
     }
 
     public void deleteById(Long id){
+
         todoDao.deleteById(id);
     }
 }
