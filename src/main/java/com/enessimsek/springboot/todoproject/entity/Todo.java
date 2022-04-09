@@ -3,6 +3,7 @@ package com.enessimsek.springboot.todoproject.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "todo")
 public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

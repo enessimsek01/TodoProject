@@ -5,6 +5,7 @@ import com.enessimsek.springboot.todoproject.converter.TodoConverter;
 import com.enessimsek.springboot.todoproject.dao.TodoDao;
 import com.enessimsek.springboot.todoproject.dto.TodoDto;
 import com.enessimsek.springboot.todoproject.dto.TodoSaveRequestDto;
+import com.enessimsek.springboot.todoproject.dto.TodoUpdateRequestDto;
 import com.enessimsek.springboot.todoproject.entity.Todo;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,16 @@ public class TodoEntityService {
         todo = todoDao.save(todo);
         TodoDto todoDto = TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
         return todoDto;
+    }
+
+    public TodoDto update(TodoUpdateRequestDto todoUpdateRequestDto){
+
+        Todo todo=TodoConverter.INSTANCE.convertTodoUpdateRequestDtoToTodo(todoUpdateRequestDto);
+        todo=todoDao.save(todo);
+        TodoDto todoDto=TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
+
+        return todoDto;
+
     }
 
     public void deleteById(Long id){

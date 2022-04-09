@@ -1,15 +1,15 @@
 package com.enessimsek.springboot.todoproject.controller;
 
-
 import com.enessimsek.springboot.todoproject.dto.TodoDto;
 import com.enessimsek.springboot.todoproject.dto.TodoSaveRequestDto;
+import com.enessimsek.springboot.todoproject.dto.TodoUpdateRequestDto;
 import com.enessimsek.springboot.todoproject.entityservice.TodoEntityService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/todos")
 public class TodoController {
 
     private final TodoEntityService todoEntityService;
@@ -28,14 +28,18 @@ public class TodoController {
         return todoEntityService.findById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("")
     public TodoDto save(@RequestBody TodoSaveRequestDto todoSaveRequestDto){
         return todoEntityService.save(todoSaveRequestDto);
+    }
+
+    @PutMapping("")
+    public TodoDto update(@RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
+        return todoEntityService.update(todoUpdateRequestDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id){
         todoEntityService.deleteById(id);
     }
-
 }
