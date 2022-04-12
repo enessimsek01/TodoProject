@@ -32,7 +32,7 @@ public class TodoEntityService {
 
     public TodoDto findById(Long id){
         Todo todo=todoDao.findById(id)
-                .orElseThrow(()->new TodoNotFoundException("Work Not found"));
+                .orElseThrow(()->new TodoNotFoundException("Task Not found"));
         TodoDto todoDto=TodoConverter
                 .INSTANCE
                 .convertTodoToTodoDto(todo);

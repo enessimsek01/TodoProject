@@ -20,6 +20,7 @@ public class TodoController {
 
     @GetMapping("")
     public List<TodoDto> findAllTodoList(){
+
         return todoEntityService.findAll();
     }
 
