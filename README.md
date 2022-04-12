@@ -61,7 +61,7 @@ A small ToDo list was done.
 |    findById 	     |  GET  	   |            id     	            |      Chooses to a Task according to given id. 	       |   	
 |      save 	       |  POST  	  |      TodoSaveRequestDto 	      |           Creates new Task.               	           |   	
 |     update 	      |   PUT 	   | id, TodoUpdateRequestDto     	 | Updates the task according to given id.             	 | 
-      deleteById 	 | DELETE  	 |           id      	            |            Deletes the task according to given id.                	             |
+|      deleteById 	 | DELETE  	 |           id      	            |            Deletes the task according to given id.                	             |
 
 * 10 data is transferred by default when the program starts
 
