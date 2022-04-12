@@ -6,7 +6,6 @@ import com.enessimsek.springboot.todoproject.dto.TodoSaveRequestDto;
 import com.enessimsek.springboot.todoproject.dto.TodoUpdateRequestDto;
 import com.enessimsek.springboot.todoproject.entity.Todo;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -26,4 +25,6 @@ public interface TodoConverter {
     Todo convertTodoSaveRequestDtoToTodo(TodoSaveRequestDto todoSaveRequestDto);
 
     Todo convertTodoUpdateRequestDtoToTodo(TodoUpdateRequestDto todoUpdateRequestDto);
+
+    TodoUpdateRequestDto convertTodoToTodoUpdateRequestDto(Todo todo);
 }

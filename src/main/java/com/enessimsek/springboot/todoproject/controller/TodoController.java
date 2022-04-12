@@ -33,8 +33,11 @@ public class TodoController {
         return todoEntityService.save(todoSaveRequestDto);
     }
 
-    @PutMapping("")
-    public TodoDto update(@RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
+    @PutMapping("/{id}")
+    public TodoDto update(@PathVariable Long id,@RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
+
+        TodoDto byId = todoEntityService.findById(id);
+        todoUpdateRequestDto.setId(byId.getId());
         return todoEntityService.update(todoUpdateRequestDto);
     }
 

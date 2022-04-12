@@ -6,6 +6,8 @@ public class TodoUpdateRequestDto {
 
     private String work;
 
+    private String description;
+
     public Long getId() {
         return id;
     }
@@ -20,5 +22,13 @@ public class TodoUpdateRequestDto {
 
     public void setWork(String work) {
         this.work = work;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

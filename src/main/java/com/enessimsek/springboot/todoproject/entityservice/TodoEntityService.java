@@ -11,7 +11,6 @@ import com.enessimsek.springboot.todoproject.exception.TodoNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TodoEntityService {
@@ -25,35 +24,46 @@ public class TodoEntityService {
 
     public List<TodoDto> findAll(){
         List<Todo> todoList = todoDao.findAll();
-        List<TodoDto> todoDtoList = TodoConverter.INSTANCE.convertAllTodoListToTodoDtoList(todoList);
+        List<TodoDto> todoDtoList = TodoConverter
+                .INSTANCE
+                .convertAllTodoListToTodoDtoList(todoList);
         return todoDtoList;
     }
 
     public TodoDto findById(Long id){
-        Todo todo=todoDao.findById(id).orElseThrow(()->new TodoNotFoundException("Work Not found"));
-        TodoDto todoDto=TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
+        Todo todo=todoDao.findById(id)
+                .orElseThrow(()->new TodoNotFoundException("Work Not found"));
+        TodoDto todoDto=TodoConverter
+                .INSTANCE
+                .convertTodoToTodoDto(todo);
         return todoDto;
     }
 
     public TodoDto save(TodoSaveRequestDto todoSaveRequestDto){
-        Todo todo=TodoConverter.INSTANCE.convertTodoSaveRequestDtoToTodo(todoSaveRequestDto);
+        Todo todo=TodoConverter
+                .INSTANCE
+                .convertTodoSaveRequestDtoToTodo(todoSaveRequestDto);
         todo = todoDao.save(todo);
-        TodoDto todoDto = TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
+        TodoDto todoDto = TodoConverter
+                .INSTANCE
+                .convertTodoToTodoDto(todo);
         return todoDto;
     }
 
     public TodoDto update(TodoUpdateRequestDto todoUpdateRequestDto){
 
-        Todo todo=TodoConverter.INSTANCE.convertTodoUpdateRequestDtoToTodo(todoUpdateRequestDto);
+        Todo todo=TodoConverter
+                .INSTANCE
+                .convertTodoUpdateRequestDtoToTodo(todoUpdateRequestDto);
         todo=todoDao.save(todo);
-        TodoDto todoDto=TodoConverter.INSTANCE.convertTodoToTodoDto(todo);
+        TodoDto todoDto=TodoConverter
+                .INSTANCE
+                .convertTodoToTodoDto(todo);
 
         return todoDto;
 
     }
-
-    public void deleteById(Long id){
-
+        public void deleteById(Long id){
         todoDao.deleteById(id);
     }
 }
